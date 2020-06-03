@@ -1,0 +1,27 @@
+sourceRoot: src
+# set by program:
+# outputRoot: out
+outFileExtension: .rtf
+sourceEncoding: UTF-8
+outputEncoding: UTF-8
+ignoreCvsFiles: true
+ignoreSvnFiles: true
+ignoreTemporaryFiles: true
+logFile: log.fmpp
+modes: [
+  ignore(**/*.ftl)
+  execute(**/*.rtf)
+  copy(**/*)
+]
+freemarkerLinks: {
+  includes: "../includes"
+}
+# set by program:
+# data: {
+  # docFile: nameOfRootOutputFile
+  # doc: xml(nameOfGappFile)
+  # commentFormat: plain|html
+  # gatehome: GATE home directory path name
+  # relpath: directory where gapp file is stored
+# }
+

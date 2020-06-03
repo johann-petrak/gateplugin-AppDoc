@@ -1,0 +1,63 @@
+<#include "/@includes/macros.ftl">
+<#assign outFormat="rtf">
+<@pp.dropOutputFile />
+<@pp.changeOutputFile name=docFile />
+<#assign RtfConverter="com.joliciel.freemarker.rtf.RtfConverter"?new()>
+<#import "/@includes/rtf.ftl" as rtf>
+<#escape x as RtfConverter(x)>
+<@rtf.document><#t>
+<@rtf.H1>GATE Application ${doc["/gate.util.persistence.GateApplication/application/resourceName"]}</@rtf.H1><#t>
+<@rtf.newline/><#t>
+<@rtf.bold>Author:</@rtf.bold> ${getAuthor(doc["/gate.util.persistence.GateApplication/application/features"])}<@rtf.newline/><#t>
+<@rtf.bold>Version:</@rtf.bold> ${getVersion(doc["/gate.util.persistence.GateApplication/application/features"])}<@rtf.newline/><#t>
+<@rtf.bold>Type:</@rtf.bold> ${doc["/gate.util.persistence.GateApplication/application/resourceType"]}<@rtf.newline/><#t>
+<@rtf.bold>GATE home directory:</@rtf.bold> ${gatehome}<@rtf.newline/><#t>
+<@rtf.bold>Relative path:</@rtf.bold> ${relpath}<@rtf.newline/><#t>
+<@rtf.bold>Corpus:</@rtf.bold> ${getCorpusName(doc)}<@rtf.newline/><#t>
+<@rtf.bold>Corpus type:</@rtf.bold> ${getCorpusType(doc)}<@rtf.newline/><#t>
+${getComment(doc["/gate.util.persistence.GateApplication/application/features"])}<@rtf.newline/><#t>
+<@rtf.newline/><#t>
+<@rtf.H2>CREOLE Plugins</@rtf.H2><#t>
+<#list doc["/gate.util.persistence.GateApplication/urlList/localList/gate.util.persistence.PersistenceManager-URLHolder"] as e><#t>
+   <@rtf.bullet><@url e/></@rtf.bullet><#t>
+</#list><#t>
+<@rtf.newline/><#t>
+<@rtf.H2>Processing Resources</@rtf.H2><#t>
+<@list_prs4controller doc["/gate.util.persistence.GateApplication/application"] ; e><#t>
+<@rtf.newline/><#t>
+<@rtf.bold><@rtf.underline>${e["resourceName"]}</@rtf.underline> (${e["resourceType"]})</@rtf.bold><@rtf.newline/><#t>
+${getComment(e["features"])}<@rtf.newline/><#t><@rtf.newline/><#t>
+<#if hasCondition(e)><#t>
+\tab<@rtf.bold>Condition:</@rtf.bold><#t>
+  <#switch getConditionRunMode(e)>
+  <#case "1"><#t>
+  always run<#t>
+  <#break><#t>
+  <#case "2"><#t>
+  do not run<#t>
+  <#break><#t>
+  <#case "4"><#t>
+  if feature "${getConditionFeature(e)}" is "${getConditionValue(e)}"<#t>
+  <#break><#t>
+  <#default><#t>
+  (Strange runMode: ${getConditionRunMode(e)})<#t>
+  </#switch><#t>
+  <@rtf.newline/><#t>
+</#if><#t>
+<#if hasParms(e["initParams"])><#t>
+<@rtf.newline/><#t><@rtf.newline/><#t>
+\tab<@rtf.bold>InitParms:</@rtf.bold><@rtf.newline/><#t>
+  <@list_parms e["initParams"] ; k, v ><#t>
+\tab<@rtf.fontSize 6>${k}=<@format_value v/></@rtf.fontSize><@rtf.newline/><#t>
+  </@list_parms><#t>
+</#if><#t>
+<#if hasParms(e["runtimeParams"])><#t>
+<@rtf.newline/><#t><@rtf.newline/><#t>
+\tab<@rtf.bold>RuntimeParms:</@rtf.bold><@rtf.newline/><#t>
+  <@list_parms e["runtimeParams"] ; k, v ><#t>
+\tab<@rtf.fontSize 6>${k}=<@format_value v/></@rtf.fontSize><@rtf.newline/><#t>
+  </@list_parms><#t>
+</#if><#t>
+</@list_prs4controller><#t>
+</@rtf.document>
+</#escape>

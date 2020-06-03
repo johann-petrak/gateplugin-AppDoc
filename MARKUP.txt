@@ -1,0 +1,44 @@
+Subset of Creole1.0 http://www.wikicreole.org/wiki/Creole1.0
+
+
+Inline verbatim: {{{   }}}
+Simply replace: 
+  {{{ -> <tt>    \texttt{
+  }}} -> </tt>   }
+
+Block verbatim: (must be in column 1!)
+{{{
+}}}
+
+Replace:
+  {{{ -> begin{verbatim}
+  }}} -> end{verbatim}
+
+Heading:
+  = sdsdsd sdsd ==
+
+Must be within one line!!
+
+Itemize:
+  * 
+  ** 
+  ***
+
+Also mix styles
+  #
+  #*
+  #* 
+  #*#
+
+etc
+
+Replace:
+  if we are within indentation, simply by item/enumerate
+  if not, adapt indentation level 
+
+
+Empty lines separate paragraphs
+
+\\ at the end of a line inserts deliberate nl (e.g. <br/>
+
+

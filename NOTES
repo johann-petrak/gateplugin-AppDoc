@@ -1,0 +1,50 @@
+Maybe just implement our own mini-markup language and have
+simple translation into HTML and LaTeX, could be easier and 
+simpler than trying to adapt and adopt existing solutions.
+(Where other than TAM/CoW, there is no Java-Based solution
+for Markup->Latex anyways).
+
+Just choose a subset of Creole1.0 (http://www.wikicreole.org/wiki/Creole1.0)
+for now:
+
+See file MARKUP.txt
+
+
+
+Now, 2013, CoW (GateWiki) seems to still be the only Java software
+that can convert a lightweight markup language into either HTML 
+or Latex
+
+Maybe interesting as alternative/additional template engine:
+  http://velocity.apache.org/engine/releases/velocity-1.5/user-guide.html
+
+TODO: 
+  * Provide a GUI for adding documentation to corpus LRs
+  * find a way to document the meaning of annotation types and annotation
+    sets. Ideally, this would be some separate declaration similar or 
+    identical to annotation schemata. Once loaded, the information 
+    would be shown when mousing over the type in the GUI and should 
+    be retrievable by some API method.
+  * checkout http://code.google.com/p/wikimodel/ - usable for converting
+    wiki formats?
+  * checkout gatewiki ... hot to converts gatewiki syntax to html/latex?
+  * How about reStructuredText: http://docutils.sourceforge.net/rst.html
+  * for MoinMoin => actually, not MoinMoin but Creole! TODO: rename in plugin!
+     https://github.com/mrico/creole-parser
+     https://github.com/unsaved/jcreole 
+     http://admc.com/jcreole/
+     http://web-tec.info/WikiParser/     
+  * consider Markdown markup language; there is a java lib for it here:
+    http://code.google.com/p/markdownj/
+
+Markup languages (a list is given as part of http://johnmacfarlane.net/pandoc/
+  => SEE https://en.wikipedia.org/wiki/Lightweight_markup_language
+  * markdown: http://daringfireball.net/projects/markdown/
+  * restructuredtext: http://docutils.sourceforge.net/docs/ref/rst/introduction.html
+  * textile: http://redcloth.org/textile
+
+Possible output:
+  * HTML
+  * Latex
+  * PDF
+  * OpenOffice/Word (RTF?)

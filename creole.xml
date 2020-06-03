@@ -1,0 +1,21 @@
+<!-- creole.xml AppDoc -->
+<CREOLE-DIRECTORY 
+  ID="com.jpetrak.AppDoc" 
+  VERSION="0.19" 
+  GATE-MIN="6.0"
+  DESCRIPTION="Support for documenting pipelines and JAPE files"
+  HELPURL="http://code.google.com/p/gateplugin-appdoc"
+>
+  <JAR SCAN="true">AppDoc.jar</JAR>
+  <JAR>lib/bsh.jar</JAR>
+  <JAR>lib/fmpp.jar</JAR>
+  <JAR>lib/freemarker.jar</JAR>
+  <JAR>lib/oro.jar</JAR>
+  <JAR>lib/resolver.jar</JAR>
+  <JAR>lib/commons-cli-1.2.jar</JAR>
+  <JAR>lib/beaver-rt-0.9.9.jar</JAR>
+  <JAR>lib/commons-io-2.1.jar</JAR>
+  <JAR>lib/commons-lang-2.6.jar</JAR>
+  <JAR>lib/commons-logging-1.1.1.jar</JAR>
+  <JAR>lib/jcreole-1.2.0.jar</JAR>
+</CREOLE-DIRECTORY>

@@ -1,0 +1,72 @@
+<#include "/@includes/macros.ftl">
+<#assign outFormat="latex">
+<@pp.dropOutputFile />
+<@pp.changeOutputFile name=docFile />
+\documentclass[10pt]{article}
+\usepackage{cite}
+\usepackage{url}
+\usepackage[utf8]{inputenc}
+\urlstyle{rm}
+
+\begin{document}
+
+\section[]{GATE Application ${doc["/gate.util.persistence.GateApplication/application/resourceName"]}}
+
+Documentation created: ${pp.now} \\
+\textbf{Author:} ${getAuthor(doc["/gate.util.persistence.GateApplication/application/features"])}\\
+\textbf{Version:} ${getVersion(doc["/gate.util.persistence.GateApplication/application/features"])}\\
+\textbf{Type:} ${doc["/gate.util.persistence.GateApplication/application/resourceType"]}\\
+\textbf{GATE home directory:} \url{${gatehome}}\\
+\textbf{Relative path:} \url{${relpath}}\\
+\textbf{Corpus:} \url{${getCorpusName(doc)}}\\
+\textbf{Corpus type:} \url{${getCorpusType(doc)}}\\
+${getComment(doc["/gate.util.persistence.GateApplication/application/features"])}
+
+
+\subsection[]{CREOLE Plugins}
+\begin{itemize}
+<#list doc["/gate.util.persistence.GateApplication/urlList/localList/gate.util.persistence.PersistenceManager-URLHolder"] as e>
+\item<@url e/>
+</#list>
+\end{itemize}
+
+\subsection{Processing Resources}
+<@list_prs4controller doc["/gate.util.persistence.GateApplication/application"] ; e>
+\subsubsection{${e["resourceName"]} (${e["resourceType"]})}
+${getComment(e["features"])}
+<#if hasCondition(e)>
+\textbf{Condition:}
+  <#switch getConditionRunMode(e)>
+  <#case "1">
+  always run
+  <#break>
+  <#case "2">
+  do not run
+  <#break>
+  <#case "4">
+  if feature "${getConditionFeature(e)}" is "${getConditionValue(e)}"
+  <#break>
+  <#default>
+  (Strange runMode: ${getConditionRunMode(e)})
+  </#switch>
+</#if>
+<#if hasParms(e["initParams"])>
+
+\textbf{InitParms:}\\
+\begin{description}
+  <@list_parms e["initParams"] ; k, v >
+    \item ${k}=<@format_value v/>
+  </@list_parms>
+\end{description}
+</#if>
+<#if hasParms(e["runtimeParams"])>
+
+\textbf{RuntimeParms:}\\
+\begin{description}
+  <@list_parms e["runtimeParams"] ; k, v >
+    \item ${k}=<@format_value v/>
+  </@list_parms>
+\end{description}
+</#if>
+</@list_prs4controller>
+\end{document}

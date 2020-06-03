@@ -1,0 +1,116 @@
+<#include "/@includes/macros.ftl">
+
+<#function expandUrl url>
+<#-- This override the definition in the marcos.ftl file  -->
+<#local tmpurl=url?replace("$gatehome$",gatehome+"/")>
+<#local tmpurl=tmpurl?replace("$relpath$","")>
+<#return tmpurl>
+</#function>
+
+<#assign outFormat="html">
+<@pp.dropOutputFile />
+<@pp.changeOutputFile name=docFile />
+<head>
+<title>GATE Application Documentation: ${doc["/gate.util.persistence.GateApplication/application/resourceName"]}</title>
+<style type="text/css">
+	dt {
+		font-weight: bold;
+		font-size: 110%;
+		padding-top: 10px;
+	}
+
+	.condition1 {
+		color: green;
+	}
+
+	.condition2 {
+		color: red;
+	}
+
+	.condition4 {
+		color: orange;
+	}
+
+	a {
+		color: black !important;
+	}
+
+</style>
+</head>
+</body>
+<h1>GATE Application ${doc["/gate.util.persistence.GateApplication/application/resourceName"]}</h1>
+
+Documentation created: ${pp.now}<p>
+<b>Author:</b> ${getAuthor(doc["/gate.util.persistence.GateApplication/application/features"])}<br>
+<b>Version:</b> ${getVersion(doc["/gate.util.persistence.GateApplication/application/features"])}<br>
+<b>Type:</b> ${doc["/gate.util.persistence.GateApplication/application/resourceType"]}<br>
+${getComment(doc["/gate.util.persistence.GateApplication/application/features"])}
+
+
+<h2>CREOLE Plugins</h2>
+<ul>
+<#list doc["/gate.util.persistence.GateApplication/urlList/localList/gate.util.persistence.PersistenceManager-URLHolder"] as e>
+<li><@url e/></li>
+</#list>
+</ul>
+
+<h2>Application Pipeline Overview</h2>
+
+<#assign nr=1>
+<ul>
+<@list_prs4controller doc["/gate.util.persistence.GateApplication/application"] ; e>
+<li <#if hasCondition(e)>class="condition${getConditionRunMode(e)}"</#if>><a href="#pr${nr}">${e["resourceName"]}</a></li>
+<#assign nr=nr+1>
+</@list_prs4controller>
+</ul>
+
+<h2>Processing Resource Configurations</h2>
+
+<#assign nr=1>
+<dl>
+<@list_prs4controller doc["/gate.util.persistence.GateApplication/application"] ; e>
+<#assign hu=getHelpURL(e["features"])>
+<dt><#if hasCondition(e)>
+<span style="font-size: 150%;" class="condition${getConditionRunMode(e)}">&bull;</span> </#if> <a name="pr${nr}">${e["resourceName"]}</a> (<#switch hu><#case "">${e["resourceType"]}<#break><#default><a href="${hu}">${e["resourceType"]}</a></#switch>)</dt>
+<dd>${getComment(e["features"])}
+<div id="params${nr}" style="display: block;">
+<#if hasCondition(e)>
+<p><b>Condition:</b>
+  <#switch getConditionRunMode(e)>
+  <#case "1">
+  always run
+  <#break>
+  <#case "2">
+  do not run
+  <#break>
+  <#case "4">
+  if feature "${getConditionFeature(e)}" is "${getConditionValue(e)}"
+  <#break>
+  <#default>
+  (Strange runMode: ${getConditionRunMode(e)})
+  </#switch>
+</#if>
+<#if hasParms(e["initParams"])>
+<p>
+<b>InitParms:</b><br>
+<div style="margin-left:2em;">
+  <@list_parms e["initParams"] ; k, v >
+    ${k}=<@format_value v/><br>
+  </@list_parms>
+</div>
+</#if>
+<#if hasParms(e["runtimeParams"])>
+<p>
+<b>RuntimeParms:</b><br>
+<div style="margin-left:2em;">
+  <@list_parms e["runtimeParams"] ; k, v >
+    ${k}=<@format_value v/><br>
+  </@list_parms>
+</div>
+</#if>
+</div></dd>
+<#assign nr=nr+1>
+</@list_prs4controller>
+</dl>
+</body>
+<html><body></body></html>
