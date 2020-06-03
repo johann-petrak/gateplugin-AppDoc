@@ -1,5 +1,7 @@
 # gateplugin-AppDoc
 
+**NOTE: this is the GitHub repo for a plugin that was originally on Google
+Code [https://code.google.com/archive/p/gateplugin-appdoc/](https://code.google.com/archive/p/gateplugin-appdoc/) and has been last updated in 2013!**
 
 This is a plugin for the GATE (http://gate.ac.uk) language technology framework that makes it easy to document GATE controllers and processing resources:
 
