@@ -10,5 +10,4 @@ This is a plugin for the GATE (http://gate.ac.uk) language technology framework 
 * Generates all documentation with the help of arbitrary templates that can be extended or created by the user. The template approach can be used to generate the documentation in any textual format. 
 * Comes with basic example templates for generating documentation in HTML, LaTeX, and RTF format.
 
-To get started please check out the wiki pages, especially Installation and Use
-
+See the documentation pages in the [doc](doc) directory.
